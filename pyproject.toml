@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lambda-xc"
+version = "0.1.0"
+description = "Simulations for the cross-chromosome inflation factor (λ_XC)."
+authors = [{name = "Junkai Zhang"}]
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+  "numpy>=1.22",
+  "pandas>=1.5",
+  "scipy>=1.9",
+  "matplotlib>=3.5"
+]
+
+[project.scripts]
+lambda-xc-run = "lambda_xc.cli:main"
