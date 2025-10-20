@@ -36,7 +36,7 @@ pip install -e .
 
 ## Preparing the data
 
-1. Obtain HapMap3 genotype bundles (or the course-supplied dataset).
+1. Obtain HapMap3 genotype bundles.
 2. Extract the `.geno`, `.ind`, and `.snp` files into a directory, e.g. `lambda_xc_project/data/hapmap3`.
 3. Ensure `HapMap3.snp` is present in the same directory (used as the SNP reference).
 
