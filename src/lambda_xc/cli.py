@@ -21,7 +21,16 @@ def parse_args(argv: List[str] | None = None) -> argparse.Namespace:
         "--data-root",
         type=Path,
         required=True,
-        help="Directory containing HapMap3 .geno/.ind/.snp files.",
+        help="Directory containing genotype files for the requested panels.",
+    )
+    parser.add_argument(
+        "--genotype-format",
+        choices=["auto", "hapmap", "plink", "vcf"],
+        default="auto",
+        help=(
+            "File format for the genotype panels. "
+            "Use 'auto' to infer from the data directory."
+        ),
     )
     parser.add_argument(
         "--panels",
@@ -100,7 +109,12 @@ def main(argv: List[str] | None = None) -> None:
         seed=args.seed,
     )
 
-    results = run_panel_analysis(args.data_root, panels, settings)
+    results = run_panel_analysis(
+        args.data_root,
+        panels,
+        settings,
+        genotype_format=args.genotype_format,
+    )
     df = format_summary(results)
     print(
         df.to_string(

@@ -13,7 +13,7 @@ Factor for Detecting Subtle Population Structure.”*
 
 - Python ≥ 3.9
 - NumPy ≥ 1.22, SciPy ≥ 1.9, Pandas ≥ 1.5, Matplotlib ≥ 3.5
-- HapMap3 `.snp/.geno/.ind` files for the populations of interest (e.g. CHB, CEU, TSI, YRI)
+- Genotype files per population in HapMap (`.geno`), PLINK (`.bed/.bim/.fam`) or VCF format
 
 ## Repository layout
 
@@ -36,9 +36,9 @@ pip install -e .
 
 ## Preparing the data
 
-1. Obtain HapMap3 genotype bundles.
-2. Extract the `.geno`, `.ind`, and `.snp` files into a directory, e.g. `lambda_xc_project/data/hapmap3`.
-3. Ensure `HapMap3.snp` is present in the same directory (used as the SNP reference).
+1. Obtain genotype bundles for the populations of interest. The toolkit supports HapMap (`.geno`), PLINK binary (`.bed/.bim/.fam`), and VCF panels.
+2. Place the files for each population in a common directory, e.g. `lambda_xc_project/data/panels`. HapMap datasets should include a shared `.snp` reference (default `HapMap3.snp`).
+3. For PLINK datasets, ensure matching `.bim`/`.fam` files accompany each `.bed`. For VCF panels, supply a `.vcf` (or `.vcf.gz`) per population.
 
 The CLI will accept any path via `--data-root`, so you can keep the data outside the repository if preferred.
 
@@ -68,7 +68,8 @@ Results:
 
 | Flag | Description | Default |
 | ---- | ----------- | ------- |
-| `--data-root PATH` | Directory containing `.geno/.ind/.snp` files | *required* |
+| `--data-root PATH` | Directory containing genotype files | *required* |
+| `--genotype-format {auto,hapmap,plink,vcf}` | Explicitly set the genotype format (default auto-detect) | `auto` |
 | `--panels` | Panels to analyse (e.g. `CEU`, `CEU+TSI`) | `CHB CEU CEU+TSI CEU+YRI` |
 | `--nsnp-per-chr` | Target SNPs per chromosome after pruning | `2000` |
 | `--prune-kb` | Distance threshold (kb) for pruning | `100` |
