@@ -27,10 +27,14 @@ def run_panel_analysis(
     data_root: Path | str,
     panels: Sequence[PanelConfig],
     settings: SimulationSettings | None = None,
+    genotype_format: str | None = None,
 ) -> List[PanelResult]:
     """Execute the full pipeline for the requested panels."""
     cfg = settings or SimulationSettings()
-    dataset = HapMapDataset(Path(data_root))
+    dataset = HapMapDataset(
+        Path(data_root),
+        genotype_format=genotype_format or "auto",
+    )
 
     snp_indices = distance_prune(dataset, cfg.nsnp_per_chr, cfg.prune_kb)
     chr_labels = dataset.snp_table.iloc[snp_indices]["chromosome"].to_numpy()
